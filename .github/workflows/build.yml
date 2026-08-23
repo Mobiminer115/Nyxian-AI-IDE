@@ -32,8 +32,6 @@ jobs:
       - name: Install Dependencies
         run: |
           set -e
-
-          # Packages we desperately need
           brew install ldid dpkg libarchive
 
       - name: Setup
@@ -44,7 +42,6 @@ jobs:
         timeout-minutes: 1200
         run: |
           set -e
-
           CHECK_DEPS=0 make all
 
       - name: Upload Nyxian
@@ -52,3 +49,8 @@ jobs:
         with:
           name: Nyxian.ipa
           path: Nyxian.ipa
+
+      # CI trigger marker: keep this workflow on the same build path while
+      # allowing us to verify the current main branch after feature merges.
+      - name: CI verification marker
+        run: echo "Nyxian AI agent CI verification"
